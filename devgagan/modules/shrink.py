@@ -63,34 +63,42 @@ async def is_user_verified(user_id):
     return session is not None
  
  
+import random
+
 @app.on_message(filters.command("start"))
 async def token_handler(client, message):
-    """Handle the /token command."""
+    """Handle the /start command."""
     join = await subscribe(client, message)
     if join == 1:
         return
-    chat_id = "save_restricted_content_bots"
-    msg = await app.get_messages(chat_id, 796)
-    user_id = message.chat.id
-    if len(message.command) <= 1:
-        image_url = "https://i.postimg.cc/v8q8kGyz/startimg-1.jpg"
-        join_button = InlineKeyboardButton("Join Channel", url="https://t.me/team_spy_pro")
-        premium = InlineKeyboardButton("Get Premium", url="https://t.me/kingofpatal")   
-        keyboard = InlineKeyboardMarkup([
-            [join_button],   
-            [premium]    
-        ])
-         
-        await message.reply_photo(
-            msg.photo.file_id,
-            caption=(
-                "Hi 👋 Welcome, Wanna intro...?\n\n"
-                "✳️ I can save posts from channels or groups where forwarding is off. I can download videos/audio from YT, INSTA, ... social platforms\n"
-                "✳️ Simply send the post link of a public channel. For private channels, do /login. Send /help to know more."
-            ),
-            reply_markup=keyboard
-        )
-        return  
+
+    # List of image URLs
+    image_urls = [
+        "https://i.ibb.co/W4KTfKpq/photo-2025-04-25-18-45-46-7500108398944321540.jpg",
+        "https://i.ibb.co/9m51SQsg/photo-2025-05-03-06-52-43-7500108832736018436.jpg",
+        "https://i.ibb.co/wZPLSVKc/photo-2025-05-03-06-52-33-7500108789786345476.jpg"
+    ]
+    
+    # Random image
+    image_url = random.choice(image_urls)
+
+    # Buttons
+    join_button = InlineKeyboardButton("Join Channel", url="https://t.me/TARGETALLCOURSE")
+    premium = InlineKeyboardButton("Get Premium", url="https://t.me/courses_hub2_bot")   
+    keyboard = InlineKeyboardMarkup([
+        [join_button],   
+        [premium]    
+    ])
+
+    await message.reply_photo(
+        photo=image_url,
+        caption=(
+            "Hi 👋 Welcome, Wanna intro...?\n\n"
+            "✳️ I can save posts from channels or groups where forwarding is off. I can download videos/audio from YT, INSTA, ... social platforms\n"
+            "✳️ Simply send the post link of a public channel. For private channels, do /login. Send /help to know more. developer CR CHOUDHARY ✅"
+        ),
+        reply_markup=keyboard
+    )
  
     param = message.command[1] if len(message.command) > 1 else None
     freecheck = await chk_user(message, user_id)
